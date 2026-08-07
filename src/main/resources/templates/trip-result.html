@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Trip Result</title>
+</head>
+<body>
+
+<h1>Your Trip Plan</h1>
+
+<h2>Trip Details</h2>
+
+<p><b>Destination:</b> <span th:text="${destination}"></span></p>
+
+<p><b>Number of Days:</b> <span th:text="${days}"></span></p>
+
+<p><b>Budget:</b> ₹<span th:text="${budget}"></span></p>
+
+<p><b>Travel Mood:</b> <span th:text="${mood}"></span></p>
+
+<hr>
+
+<h2>✨ Your Personalized Trip</h2>
+
+<p>Based on your destination, budget, number of days and travel mood, your trip plan is ready!</p>
+
+<a th:href="@{/itinerary(days=${days})}">
+    <button>View Day-wise Itinerary</button>
+</a>
+
+<br><br>
+
+<button onclick="history.back()">Back to Planner</button>
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Day-wise Itinerary</title>
+</head>
+<body>
+
+<h1>Your Day-wise Itinerary</h1>
+
+<div th:each="day : ${#numbers.sequence(1, days)}">
+
+    <h2 th:text="'Day ' + ${day}"></h2>
+
+    <p th:if="${day == 1}">
+        Explore the destination and visit popular places.
+    </p>
+
+    <p th:if="${day == 2}">
+        Enjoy local food and explore nearby attractions.
+    </p>
+
+    <p th:if="${day == 3}">
+        Relax, shop and enjoy your final day.
+    </p>
+
+    <p th:if="${day == 4}">
+    Discover hidden gems, enjoy adventure activities and explore local culture.
+</p>
+
+<p th:if="${day == 5}">
+    Relax, shop for souvenirs and complete your memorable journey.
+</p>
+</div>
+<br>
+
+<a href="/planner">
+    <button>Back to Planner</button>
+</a>
+
+</body>
+</html>

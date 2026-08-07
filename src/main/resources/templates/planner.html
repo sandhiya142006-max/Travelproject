@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Plan Your Trip</title>
+</head>
+
+<body>
+
+    <h1>Plan Your Trip</h1>
+
+    <form action="/trip-result" method="get">
+
+        <label>Destination:</label>
+        <input type="text" name="destination" placeholder="Enter destination">
+        <br><br>
+
+        <label>Number of Days:</label>
+        <input type="number" name="days" min="1">
+        <br><br>
+
+        <label>Budget:</label>
+        <input type="number" name="budget" placeholder="Enter your budget">
+        <br><br>
+
+        <h3>Choose Your Travel Mood</h3>
+
+        <select name="mood">
+            <option value="">Select Mood</option>
+            <option>Adventure</option>
+            <option>Relax</option>
+            <option>Family</option>
+            <option>Solo</option>
+            <option>Nature</option>
+        </select>
+
+        <br><br>
+
+        <button type="submit">Create My Trip</button>
+
+    </form>
+
+</body>
+</html>
