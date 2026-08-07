@@ -16,11 +16,25 @@
 <p><b>Budget:</b> ₹<span th:text="${budget}"></span></p>
 
 <p><b>Travel Mood:</b> <span th:text="${mood}"></span></p>
+<hr>
+
+<h2>💰 Smart Budget Breakdown</h2>
+
+<p>Based on your total budget, here is a suggested spending plan:</p>
+
+<p><b>🏨 Stay:</b> ₹<span th:text="${budget * 0.35}"></span></p>
+
+<p><b>🍴 Food:</b> ₹<span th:text="${budget * 0.20}"></span></p>
+
+<p><b>🚗 Transport:</b> ₹<span th:text="${budget * 0.20}"></span></p>
+
+<p><b>🎟️ Activities:</b> ₹<span th:text="${budget * 0.15}"></span></p>
+
+<p><b>💰 Emergency:</b> ₹<span th:text="${budget * 0.10}"></span></p>
 
 <hr>
 
 <h2>✨ Your Personalized Trip</h2>
-
 <p>Based on your destination, budget, number of days and travel mood, your trip plan is ready!</p>
 
 <a th:href="@{/itinerary(days=${days})}">
