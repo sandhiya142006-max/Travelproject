@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Day-wise Itinerary</title>
+</head>
+<body>
+
+<h1>Your Day-wise Itinerary</h1>
+
+<div th:each="day : ${#numbers.sequence(1, days)}">
+
+    <h2 th:text="'Day ' + ${day}"></h2>
+
+<p th:if="${destination == 'Kodaikanal' and day == 1}">
+    🏞️ Visit Kodaikanal Lake and Coaker's Walk. Enjoy the beautiful hill-station views.
+</p>
+
+<p th:if="${destination == 'Kodaikanal' and day == 2}">
+    🌳 Explore Bryant Park and Silver Cascade Falls. Enjoy local food in the evening.
+</p>
+
+<p th:if="${destination == 'Kodaikanal' and day == 3}">
+    🌲 Visit Pine Forest and Guna Caves. Spend a relaxing evening exploring nature.
+</p>
+
+<p th:if="${destination == 'Kodaikanal' and day == 4}">
+    🌄 Explore Moir Point and Dolphin's Nose. Enjoy photography and scenic viewpoints.
+</p>
+
+<p th:if="${destination == 'Kodaikanal' and day == 5}">
+    🛍️ Enjoy local shopping and try Kodaikanal homemade chocolates.
+</p>
+
+<p th:if="${destination == 'Ooty' and day == 1}">
+    🌿 Visit Ooty Lake and enjoy the beautiful surroundings.
+</p>
+
+<p th:if="${destination == 'Ooty' and day == 2}">
+    🌹 Explore Government Botanical Garden and Rose Garden.
+</p>
+
+<p th:if="${destination == 'Ooty' and day == 3}">
+    🚂 Enjoy the Nilgiri Mountain Railway experience.
+</p>
+
+<p th:if="${destination == 'Ooty' and day == 4}">
+    🌄 Visit Doddabetta Peak and enjoy the scenic mountain views.
+</p>
+
+<p th:if="${destination == 'Ooty' and day == 5}">
+    🛍️ Explore local markets and enjoy Ooty homemade chocolates.
+</p>
+
+<p th:if="${destination == 'Munnar' and day == 1}">
+    🌿 Explore Munnar tea plantations and enjoy the mountain views.
+</p>
+
+<p th:if="${destination == 'Munnar' and day == 2}">
+    🌄 Visit Top Station and enjoy the beautiful scenery.
+</p>
+
+<p th:if="${destination == 'Munnar' and day == 3}">
+    🌊 Explore Mattupetty Dam and Echo Point.
+</p>
+
+<p th:if="${destination == 'Munnar' and day == 4}">
+    🏞️ Visit Eravikulam National Park and explore nature.
+</p>
+
+<p th:if="${destination == 'Munnar' and day == 5}">
+    🛍️ Explore local markets and buy tea and spices.
+</p>
+<p th:if="${day == 6}">
+    🌿 Explore more local attractions and enjoy the natural beauty of the destination.
+</p>
+
+<p th:if="${day == 7}">
+    📸 Enjoy sightseeing and capture beautiful memories.
+</p>
+
+<p th:if="${day == 8}">
+    🍴 Try local food and explore popular restaurants.
+</p>
+
+<p th:if="${day == 9}">
+    🏞️ Visit nearby scenic places and enjoy a peaceful day.
+</p>
+
+<p th:if="${day == 10}">
+    🛍️ Explore local markets and shop for unique souvenirs.
+</p>
+
+<p th:if="${day == 11}">
+    🌄 Enjoy a relaxing morning and explore nearby viewpoints.
+</p>
+
+<p th:if="${day == 12}">
+    🚶 Take a local sightseeing tour and discover hidden places.
+</p>
+
+<p th:if="${day == 13}">
+    🌳 Spend the day exploring nature and relaxing outdoors.
+</p>
+
+<p th:if="${day == 14}">
+    🍽️ Experience local cuisine and enjoy an evening walk.
+</p>
+
+<p th:if="${day == 15}">
+    📷 Visit beautiful viewpoints and enjoy photography.
+</p>
+
+<p th:if="${day == 16}">
+    🎒 Explore nearby attractions and enjoy a memorable trip.
+</p>
+
+<p th:if="${day == 17}">
+    🌿 Spend a peaceful day exploring the surroundings.
+</p>
+
+<p th:if="${day == 18}">
+    🏕️ Enjoy outdoor activities and scenic views.
+</p>
+
+<p th:if="${day == 19}">
+    🛒 Do some final shopping and enjoy local experiences.
+</p>
+
+<p th:if="${day == 20}">
+    ✈️ Enjoy your final day and prepare for your return journey.
+</p>
+<p th:if="${day == 21}">
+    🌿 Explore nearby attractions and enjoy the natural surroundings.
+</p>
+
+<p th:if="${day == 22}">
+    📸 Visit scenic viewpoints and enjoy photography.
+</p>
+
+<p th:if="${day == 23}">
+    🍴 Try popular local food and traditional dishes.
+</p>
+
+<p th:if="${day == 24}">
+    🛍️ Explore local markets and shop for souvenirs.
+</p>
+
+<p th:if="${day == 25}">
+    🏞️ Visit nearby nature spots and enjoy a peaceful day.
+</p>
+
+<p th:if="${day == 26}">
+    🚶 Take a local sightseeing tour and discover hidden places.
+</p>
+
+<p th:if="${day == 27}">
+    ☕ Visit local cafés and experience the destination's local culture.
+</p>
+
+<p th:if="${day == 28}">
+    🌄 Explore beautiful viewpoints and enjoy the sunset.
+</p>
+
+<p th:if="${day == 29}">
+    🎒 Enjoy an outdoor activity or local adventure experience.
+</p>
+
+<p th:if="${day == 30}">
+    😌 Take a relaxed day to enjoy the destination at your own pace.
+</p>
+
+<p th:if="${day == 31}">
+    🌳 Explore another nearby attraction and spend time in nature.
+</p>
+
+<p th:if="${day == 32}">
+    📷 Discover photogenic locations and capture memorable moments.
+</p>
+
+<p th:if="${day == 33}">
+    🍽️ Experience more local cuisine and popular food spots.
+</p>
+
+<p th:if="${day == 34}">
+    🛒 Visit local shopping areas and explore unique products.
+</p>
+
+<p th:if="${day == 35}">
+    🏕️ Enjoy an outdoor experience and explore the surroundings.
+</p>
+
+<p th:if="${day == 36}">
+    🌅 Visit a scenic location and enjoy a peaceful evening.
+</p>
+
+<p th:if="${day == 37}">
+    🚗 Explore attractions around the main destination.
+</p>
+
+<p th:if="${day == 38}">
+    🌿 Spend the day exploring nature and relaxing outdoors.
+</p>
+
+<p th:if="${day == 39}">
+    🎭 Experience local culture and traditions.
+</p>
+
+<p th:if="${day == 40}">
+    ☕ Enjoy a relaxed café and local food experience.
+</p>
+
+<p th:if="${day == 41}">
+    🏞️ Visit another popular sightseeing location.
+</p>
+
+<p th:if="${day == 42}">
+    📸 Explore scenic places and enjoy photography.
+</p>
+
+<p th:if="${day == 43}">
+    🍴 Discover another local food experience.
+</p>
+
+<p th:if="${day == 44}">
+    🛍️ Explore markets and pick up local souvenirs.
+</p>
+
+<p th:if="${day == 45}">
+    🌄 Enjoy a scenic day trip to a nearby attraction.
+</p>
+
+<p th:if="${day == 46}">
+    🧗 Try an available adventure or outdoor activity.
+</p>
+
+<p th:if="${day == 47}">
+    🌳 Spend a peaceful day exploring nature.
+</p>
+
+<p th:if="${day == 48}">
+    😌 Enjoy a leisure day and revisit your favorite places.
+</p>
+
+<p th:if="${day == 49}">
+    🛒 Complete your shopping and enjoy a final local food experience.
+</p>
+
+<p th:if="${day == 50}">
+    ✈️ Enjoy your final day, collect your memories and prepare for your return journey.
+</p>`
+</div>
+<br>
+
+<a href="/planner">
+    <button>Back to Planner</button>
+</a>
+
+</body>
+</html>
