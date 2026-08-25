@@ -1,25 +1,258 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Travel Project</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f7fa;
+            color: #222;
+        }
+
+        /* Navigation Bar */
+        nav {
+            height: 70px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 7%;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1677ff;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+        }
+
+        /* Hero Section */
+       .hero {
+    min-height: 430px;
+    display: flex;
+    align-items: center;
+    padding: 70px 7%;
+    background: #f4f9fd;
+}
+
+        .hero-content {
+    max-width: 700px;
+    color: #16324f;
+}
+
+        .hero-content h1 {
+            font-size: 52px;
+            margin-bottom: 20px;
+            line-height: 1.15;
+        }
+
+        .hero-content p {
+            font-size: 19px;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        .hero-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background: #1677ff;
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 17px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .hero-button:hover {
+            transform: translateY(-3px);
+            background: #005edb;
+        }
+
+        /* Features */
+        .features {
+            padding: 60px 7%;
+            text-align: center;
+        }
+
+        .features h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .features > p {
+            color: #666;
+            margin-bottom: 35px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            padding: 35px 25px;
+            border-radius: 18px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+        }
+
+        .icon {
+            font-size: 45px;
+            margin-bottom: 18px;
+        }
+
+        .card h3 {
+            margin-bottom: 12px;
+            font-size: 21px;
+        }
+
+        .card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background: #111827;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            margin-top: 20px;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                min-height: 500px;
+                padding: 40px 6%;
+            }
+
+            .hero-content h1 {
+                font-size: 38px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-    <h1>Welcome to Travel Project</h1>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">✈️ TravelProject</div>
 
-    <h2>Travel Booking Application</h2>
+        <ul class="nav-links">
+            <li><a href="/home">Home</a></li>
+            <li><a href="/planner">Plan a Trip</a></li>
+            <li><a href="#">Destinations</a></li>
+        </ul>
+    </nav>
 
-    <p>Plan your trip, explore destinations and share your travel itinerary.</p>
 
-    <hr>
+    <!-- Hero Section -->
+    <section class="hero">
 
-    <h3>What do you want to do?</h3>
+        <div class="hero-content">
 
-    <a href="/planner"><button>Plan a Trip</button></a>
-    <button>Explore Destinations</button>
-    <button>My Itineraries</button>
-    <button>Share Trip</button>
+            <h1>Explore the World.<br>Plan Your Perfect Trip.</h1>
+
+            <p>
+                Discover amazing destinations, create personalized
+                itineraries and plan your journey based on your
+                budget and travel mood.
+            </p>
+
+            <a href="/planner" class="hero-button">
+                🌍 Plan My Trip
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- Features -->
+    <section class="features">
+
+        <h2>Everything You Need for Your Journey</h2>
+
+        <p>
+            Make your travel planning simple, smart and enjoyable.
+        </p>
+
+        <div class="cards">
+
+            <div class="card">
+                <div class="icon">🗺️</div>
+                <h3>Plan Your Trip</h3>
+                <p>
+                    Choose your destination, number of days,
+                    budget and travel preferences.
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="icon">📅</div>
+                <h3>Day-wise Itinerary</h3>
+                <p>
+                    Get a personalized itinerary organized
+                    day by day for your journey.
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="icon">💰</div>
+                <h3>Smart Budget Planning</h3>
+                <p>
+                    Plan your trip according to your budget
+                    and manage your travel expenses easily.
+                </p>
+            </div>
+
+        </div>
+
+    </sectcion>
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 TravelProject | Plan • Explore • Enjoy ✈️</p>
+    </footer>
 
 </body>
 </html>
