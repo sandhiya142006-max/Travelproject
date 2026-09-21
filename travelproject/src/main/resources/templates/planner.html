@@ -1,43 +1,350 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Plan Your Trip</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Plan Your Trip | TravelProject</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f7fa;
+            color: #222;
+            min-height: 100vh;
+        }
+
+        /* Navigation Bar */
+
+        nav {
+            height: 70px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 7%;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1677ff;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: #1677ff;
+        }
+
+        /* Main Section */
+
+        .planner-section {
+            min-height: calc(100vh - 70px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 50px 20px;
+        }
+
+        .planner-container {
+            width: 100%;
+            max-width: 700px;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+        }
+
+        .planner-container h1 {
+            text-align: center;
+            font-size: 34px;
+            color: #102a43;
+            margin-bottom: 10px;
+        }
+
+        .planner-container .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        /* Form */
+
+        form {
+            width: 100%;
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 13px 15px;
+            border: 1px solid #d5dbe3;
+            border-radius: 10px;
+            font-size: 15px;
+            outline: none;
+            background: white;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #1677ff;
+            box-shadow: 0 0 0 3px rgba(22,119,255,0.1);
+        }
+
+        .mood-title {
+            margin-bottom: 8px;
+        }
+
+        /* Button */
+
+        button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 10px;
+            background: #1677ff;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #005edb;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #777;
+            font-size: 14px;
+        }
+
+        /* Mobile */
+
+        @media (max-width: 768px) {
+
+            .nav-links {
+                display: none;
+            }
+
+            .planner-section {
+                padding: 30px 15px;
+            }
+
+            .planner-container {
+                padding: 25px;
+            }
+
+            .planner-container h1 {
+                font-size: 28px;
+            }
+        }
+
+    </style>
 </head>
 
 <body>
 
-    <h1>Plan Your Trip</h1>
+    <!-- Navigation -->
+    <nav>
 
-    <form action="/trip-result" method="get">
+        <div class="logo">
+            ✈️ TravelProject
+        </div>
 
-        <label>Destination:</label>
-        <input type="text" name="destination" placeholder="Enter destination">
-        <br><br>
+        <ul class="nav-links">
+            <li>
+                <a href="/home">Home</a>
+            </li>
 
-        <label>Number of Days:</label>
-        <input type="number" name="days" min="1" max="50">
-        <br><br>
+            <li>
+                <a href="/planner">Plan a Trip</a>
+            </li>
 
-        <label>Budget:</label>
-        <input type="number" name="budget" placeholder="Enter your budget">
-        <br><br>
+            <li>
+                <a href="#">Destinations</a>
+            </li>
+        </ul>
 
-        <h3>Choose Your Travel Mood</h3>
+    </nav>
 
-        <select name="mood">
-            <option value="">Select Mood</option>
-            <option>Adventure</option>
-            <option>Relax</option>
-            <option>Family</option>
-            <option>Solo</option>
-            <option>Nature</option>
-        </select>
 
-        <br><br>
+    <!-- Planner Section -->
 
-        <button type="submit">Create My Trip</button>
+    <section class="planner-section">
 
-    </form>
+        <div class="planner-container">
+
+            <h1>Plan Your Trip ✈️</h1>
+
+            <p class="subtitle">
+                Create your perfect travel plan based on your destination,
+                budget and travel mood.
+            </p>
+
+
+            <form action="/trip-result" method="get">
+
+                <!-- Destination -->
+
+                <div class="form-group">
+
+                    <label for="destination">
+                        Destination
+                    </label>
+
+                    <input
+                        type="text"
+                        id="destination"
+                        name="destination"
+                        placeholder="Enter your destination"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Number of Days -->
+
+                <div class="form-group">
+
+                    <label for="days">
+                        Number of Days
+                    </label>
+
+                    <input
+                        type="number"
+                        id="days"
+                        name="days"
+                        min="1"
+                        max="50"
+                        placeholder="Enter number of days"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Budget -->
+
+                <div class="form-group">
+
+                    <label for="budget">
+                        Budget
+                    </label>
+
+                    <input
+                        type="number"
+                        id="budget"
+                        name="budget"
+                        placeholder="Enter your budget"
+                        min="1"
+                        required
+                    >
+
+                </div>
+
+                <!-- Travel Mood -->
+
+                <div class="form-group">
+
+                    <label for="mood" class="mood-title">
+                        Choose Your Travel Mood
+                    </label>
+
+                    <select id="mood" name="mood" required>
+
+                        <option value="">
+                            Select Mood
+                        </option>
+
+                        <option value="Adventure">
+                            🏔️ Adventure
+                        </option>
+
+                        <option value="Relax">
+                            🌴 Relax
+                        </option>
+
+                        <option value="Family">
+                            👨‍👩‍👧 Family
+                        </option>
+
+                        <option value="Solo">
+                            🎒 Solo
+                        </option>
+
+                        <option value="Nature">
+                            🌿 Nature
+                        </option>
+                        <option value="Friends">
+    👯 Friends
+</option>
+
+<option value="Couple">
+    ❤️ Couple
+</option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Submit -->
+
+                <button type="submit">
+                    Create My Trip →
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+    <!-- Footer -->
+
+    <footer>
+        © 2026 TravelProject | Plan • Explore • Enjoy ✈️
+    </footer>
 
 </body>
 </html>

@@ -1,76 +1,565 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>Trip Result</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Your Trip Plan</title>
+
     <style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 40px;
-        background-color: #f5f7fa;
-    }
 
-    h1 {
-        text-align: center;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
 
-    h2 {
-        margin-top: 30px;
-    }
+        body {
+            background: #f5f7fa;
+            color: #222;
+        }
 
-    p {
-        font-size: 18px;
-        margin: 12px 0;
-    }
+        /* Navigation */
 
-    button {
-        padding: 10px 20px;
-        font-size: 16px;
-        cursor: pointer;
-    }
-</style>
+        nav {
+            height: 70px;
+            background: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 7%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1677ff;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: #1677ff;
+        }
+
+        /* Main Container */
+
+        .container {
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 0 25px;
+        }
+
+        /* Header */
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .page-header h1 {
+            font-size: 40px;
+            color: #16213e;
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            color: #666;
+            font-size: 17px;
+        }
+
+        /* Trip Details */
+
+        .trip-details {
+            background: white;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+
+        .trip-details h2 {
+            color: #16213e;
+            margin-bottom: 22px;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .detail-card {
+            background: #f4f8ff;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .detail-card .icon {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .detail-card h3 {
+            font-size: 15px;
+            color: #666;
+            margin-bottom: 7px;
+        }
+
+        .detail-card p {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1677ff;
+        }
+
+        /* Budget */
+
+        .budget-section {
+            background: white;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+
+        .budget-section h2 {
+            color: #16213e;
+            margin-bottom: 10px;
+        }
+
+        .budget-section > p {
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        .budget-item {
+            margin-bottom: 20px;
+        }
+
+        .budget-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .budget-bar {
+            height: 10px;
+            background: #e8edf5;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .stay-bar {
+            width: 35%;
+            height: 100%;
+            background: #1677ff;
+        }
+
+        .food-bar {
+            width: 20%;
+            height: 100%;
+            background: #22a06b;
+        }
+
+        .transport-bar {
+            width: 20%;
+            height: 100%;
+            background: #ff9f43;
+        }
+
+        .activity-bar {
+            width: 15%;
+            height: 100%;
+            background: #9b59b6;
+        }
+
+        .emergency-bar {
+            width: 10%;
+            height: 100%;
+            background: #e74c3c;
+        }
+
+        /* Personalized Trip */
+
+        .personalized {
+            background: linear-gradient(135deg, #1677ff, #005edb);
+            color: white;
+            padding: 35px;
+            border-radius: 18px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.12);
+            text-align: center;
+        }
+
+        .personalized h2 {
+            font-size: 28px;
+            margin-bottom: 12px;
+        }
+
+        .personalized p {
+            font-size: 16px;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        /* Buttons */
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .primary-btn,
+        .secondary-btn {
+            display: inline-block;
+            padding: 13px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+        }
+
+        .primary-btn {
+            background: white;
+            color: #1677ff;
+        }
+
+        .secondary-btn {
+            background: rgba(255,255,255,0.15);
+            color: white;
+            border: 1px solid white;
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .secondary-btn:hover {
+            background: white;
+            color: #1677ff;
+        }
+
+        /* Footer */
+
+        footer {
+            margin-top: 50px;
+            background: #111827;
+            color: white;
+            text-align: center;
+            padding: 25px;
+        }
+
+        /* Mobile */
+
+        @media (max-width: 768px) {
+
+            .nav-links {
+                display: none;
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .page-header h1 {
+                font-size: 32px;
+            }
+        }
+
+        @media (max-width: 500px) {
+
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                margin: 30px auto;
+            }
+        }
+
+    </style>
 </head>
+
 <body>
 
-<h1>Your Trip Plan</h1>
+    <!-- Navigation -->
 
-<h2>Trip Details</h2>
+    <nav>
 
-<p><b>Destination:</b> <span th:text="${destination}"></span></p>
+        <div class="logo">
+            ✈️ TravelProject
+        </div>
 
-<p><b>Number of Days:</b> <span th:text="${days}"></span></p>
+        <ul class="nav-links">
+            <li><a href="/home">Home</a></li>
+            <li><a href="/planner">Plan a Trip</a></li>
+          \<li><a href="/destinations">Destinations</a></li>
+        </ul>
 
-<p><b>Budget:</b> ₹<span th:text="${budget}"></span></p>
+    </nav>
 
-<p><b>Travel Mood:</b> <span th:text="${mood}"></span></p>
-<hr>
 
-<h2>💰 Smart Budget Breakdown</h2>
+    <!-- Main Content -->
 
-<p>Based on your total budget, here is a suggested spending plan:</p>
+    <div class="container">
 
-<p><b>🏨 Stay:</b> ₹<span th:text="${budget * 0.35}"></span></p>
+        <!-- Header -->
 
-<p><b>🍴 Food:</b> ₹<span th:text="${budget * 0.20}"></span></p>
+        <div class="page-header">
 
-<p><b>🚗 Transport:</b> ₹<span th:text="${budget * 0.20}"></span></p>
+            <h1>✨ Your Trip Plan</h1>
 
-<p><b>🎟️ Activities:</b> ₹<span th:text="${budget * 0.15}"></span></p>
+            <p>
+                Your personalized travel plan is ready!
+            </p>
 
-<p><b>💰 Emergency:</b> ₹<span th:text="${budget * 0.10}"></span></p>
+        </div>
 
-<hr>
 
-<h2>✨ Your Personalized Trip</h2>
-<p>Based on your destination, budget, number of days and travel mood, your trip plan is ready!</p>
+        <!-- Trip Details -->
 
-<a th:href="@{/itinerary(destination=${destination}, days=${days}, mood=${mood})}">
+        <div class="trip-details">
 
-    <button>View Day-wise Itinerary</button>
-</a>
+            <h2>🌍 Trip Details</h2>
 
-<br><br>
+            <div class="details-grid">
 
-<button onclick="history.back()">Back to Planner</button>
+                <div class="detail-card">
+
+                    <div class="icon">📍</div>
+
+                    <h3>Destination</h3>
+
+                    <p th:text="${destination}"></p>
+
+                </div>
+
+
+                <div class="detail-card">
+
+                    <div class="icon">📅</div>
+
+                    <h3>Number of Days</h3>
+
+                    <p th:text="${days}"></p>
+
+                </div>
+
+
+                <div class="detail-card">
+
+                    <div class="icon">💰</div>
+
+                    <h3>Total Budget</h3>
+
+                    <p>
+                        ₹<span th:text="${budget}"></span>
+                    </p>
+
+                </div>
+
+
+                <div class="detail-card">
+
+                    <div class="icon">😊</div>
+
+                    <h3>Travel Mood</h3>
+
+                    <p th:text="${mood}"></p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Smart Budget Breakdown -->
+
+        <div class="budget-section">
+
+            <h2>💰 Smart Budget Breakdown</h2>
+
+            <p>
+                Based on your total budget, here is a suggested spending plan:
+            </p>
+
+
+            <!-- Stay -->
+
+            <div class="budget-item">
+
+                <div class="budget-info">
+
+                    <span>🏨 Stay</span>
+
+                    <span>
+                        ₹<span th:text="${stayBudget}"></span>
+                    </span>
+
+                </div>
+
+                <div class="budget-bar">
+
+                    <div class="stay-bar"></div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Food -->
+
+            <div class="budget-item">
+
+                <div class="budget-info">
+
+                    <span>🍴 Food</span>
+
+                    <span>
+                        ₹<span th:text="${foodBudget}"></span>
+                    </span>
+
+                </div>
+
+                <div class="budget-bar">
+
+                    <div class="food-bar"></div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Transport -->
+
+            <div class="budget-item">
+
+                <div class="budget-info">
+
+                    <span>🚗 Transport</span>
+
+                    <span>
+                        ₹<span th:text="${transportBudget}"></span>
+                    </span>
+
+                </div>
+
+                <div class="budget-bar">
+
+                    <div class="transport-bar"></div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Activities -->
+
+            <div class="budget-item">
+
+                <div class="budget-info">
+
+                    <span>🎯 Activities</span>
+
+                    <span>
+                        ₹<span th:text="${activityBudget}"></span>
+                    </span>
+
+                </div>
+
+                <div class="budget-bar">
+
+                    <div class="activity-bar"></div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Emergency -->
+
+            <div class="budget-item">
+
+                <div class="budget-info">
+
+                    <span>🛡️ Emergency</span>
+
+                    <span>
+                        ₹<span th:text="${emergencyBudget}"></span>
+                    </span>
+
+                </div>
+
+                <div class="budget-bar">
+
+                    <div class="emergency-bar"></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Personalized Trip -->
+
+        <div class="personalized">
+
+            <h2>✨ Your Personalized Trip</h2>
+
+            <p>
+                Based on your destination, budget, number of days
+                and travel mood, your trip plan is ready!
+            </p>
+
+            <div class="button-group">
+
+                <a
+                    th:href="@{/itinerary(destination=${destination}, days=${days}, mood=${mood})}"
+                    class="primary-btn">
+                    📋 View Day-wise Itinerary
+                </a>
+
+                <button
+                    onclick="history.back()"
+                    class="secondary-btn">
+                    ← Back to Planner
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Footer -->
+
+    <footer>
+
+        © 2026 TravelProject | Plan • Explore • Enjoy ✈️
+
+    </footer>
 
 </body>
+
 </html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Travel Project - Register</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f4f8fc;
+        }
+
+        .register-container {
+            width: 400px;
+            padding: 40px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 45px;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            color: #1677ff;
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #777;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            text-align: left;
+            margin-bottom: 18px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 13px 15px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .input-group input:focus {
+            border-color: #1677ff;
+            box-shadow: 0 0 0 3px rgba(22, 119, 255, 0.12);
+        }
+
+        .register-button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            background: #1677ff;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .register-button:hover {
+            background: #005edb;
+        }
+
+        .login-link {
+            margin-top: 20px;
+            color: #777;
+            font-size: 14px;
+        }
+
+        .login-link a {
+            color: #1677ff;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        @media (max-width: 500px) {
+            .register-container {
+                width: 90%;
+                padding: 30px 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="register-container">
+
+        <div class="logo">✈️</div>
+
+        <h1>Create Account</h1>
+
+        <p class="subtitle">
+            Start planning your next journey.
+        </p>
+
+        <form action="/register" method="post">
+
+            <div class="input-group">
+                <label>👤 Full Name</label>
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="Enter your name"
+                    required>
+            </div>
+
+            <div class="input-group">
+                <label>📧 Email Address</label>
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="Enter your email address"
+                    required>
+            </div>
+
+            <div class="input-group">
+                <label>🔐 Password</label>
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Create your password"
+                    required>
+            </div>
+
+            <div class="input-group">
+                <label>🔐 Confirm Password</label>
+                <input
+                    type="password"
+                    name="confirmPassword"
+                    placeholder="Confirm your password"
+                    required>
+            </div>
+
+            <button type="submit" class="register-button">
+                Create Account ✈️
+            </button>
+
+        </form>
+
+        <p class="login-link">
+            Already have an account?
+            <a href="/login">Login</a>
+        </p>
+
+    </div>
+
+</body>
+
+</html>

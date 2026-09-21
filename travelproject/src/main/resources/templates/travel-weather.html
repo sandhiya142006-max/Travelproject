@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Travel Weather | TravelMate</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f9fd;
+            color: #1f2937;
+        }
+
+        /* Navbar */
+        nav {
+            height: 70px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 8%;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1677ff;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #374151;
+            margin-left: 25px;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: #1677ff;
+        }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 60px 20px 30px;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            color: #123b66;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            color: #6b7280;
+            font-size: 17px;
+        }
+
+        /* Search */
+        .search-box {
+            width: 90%;
+            max-width: 600px;
+            margin: 30px auto;
+            background: white;
+            padding: 10px;
+            border-radius: 35px;
+            display: flex;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .search-box input {
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 14px 20px;
+            font-size: 15px;
+        }
+
+        .search-box button {
+            border: none;
+            background: #1677ff;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .search-box button:hover {
+            background: #0e63d7;
+        }
+
+        /* Weather Card */
+        .weather-card {
+            width: 90%;
+            max-width: 750px;
+            margin: 35px auto 70px;
+            background: white;
+            border-radius: 22px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+
+        .weather-icon {
+            font-size: 70px;
+            margin-bottom: 15px;
+        }
+
+        .weather-card h2 {
+            font-size: 30px;
+            color: #123b66;
+            margin-bottom: 10px;
+        }
+
+        .temperature {
+            font-size: 48px;
+            font-weight: bold;
+            color: #1677ff;
+            margin: 15px 0;
+        }
+
+        .condition {
+            color: #6b7280;
+            font-size: 17px;
+            margin-bottom: 30px;
+        }
+
+        .weather-details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .detail {
+            background: #f4f9fd;
+            padding: 20px 10px;
+            border-radius: 15px;
+        }
+
+        .detail span {
+            display: block;
+            font-size: 25px;
+            margin-bottom: 8px;
+        }
+
+        .detail strong {
+            color: #123b66;
+        }
+
+        .detail p {
+            color: #6b7280;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .tip {
+            margin-top: 25px;
+            padding: 15px;
+            background: #eef6ff;
+            border-radius: 12px;
+            color: #315b82;
+            font-size: 14px;
+        }
+
+        /* Footer */
+        footer {
+            background: #123b66;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
+
+            nav {
+                padding: 0 5%;
+            }
+
+            .nav-links a {
+                margin-left: 10px;
+                font-size: 13px;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .weather-card {
+                padding: 25px;
+            }
+
+            .weather-details {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<nav>
+
+    <div class="logo">
+        TravelMate
+    </div>
+
+    <div class="nav-links">
+        <a href="/home">Home</a>
+        <a href="/planner">Plan Trip</a>
+        <a href="/destinations">Destinations</a>
+    </div>
+
+</nav>
+
+
+<!-- Hero -->
+<section class="hero">
+
+    <h1>🌤️ Travel Weather</h1>
+
+    <p>
+        Check the weather conditions before planning your journey.
+    </p>
+
+</section>
+
+
+<!-- Search -->
+<div class="search-box">
+
+    <input
+        type="text"
+        id="destinationInput"
+        placeholder="Enter destination...">
+
+    <button onclick="checkWeather()">
+        Check Weather
+    </button>
+
+</div>
+
+
+<!-- Weather Card -->
+<div class="weather-card">
+
+    <div class="weather-icon" id="weatherIcon">
+        ☀️
+    </div>
+
+    <h2 id="placeName">
+        Chennai
+    </h2>
+
+    <div class="temperature" id="temperature">
+        31°C
+    </div>
+
+    <div class="condition" id="condition">
+        Sunny and warm
+    </div>
+
+
+    <div class="weather-details">
+
+        <div class="detail">
+            <span>💧</span>
+            <strong id="humidity">65%</strong>
+            <p>Humidity</p>
+        </div>
+
+        <div class="detail">
+            <span>💨</span>
+            <strong id="wind">18 km/h</strong>
+            <p>Wind Speed</p>
+        </div>
+
+        <div class="detail">
+            <span>🌡️</span>
+            <strong>High</strong>
+            <p>Travel Comfort</p>
+        </div>
+
+    </div>
+
+
+    <div class="tip" id="travelTip">
+        💡 Tip: Carry light cotton clothes and stay hydrated.
+    </div>
+
+</div>
+
+
+<footer>
+    © 2026 TravelMate | Travel Smart • Travel Safe • Enjoy
+</footer>
+
+
+<script>
+
+function checkWeather() {
+
+    let destination =
+        document.getElementById("destinationInput").value.trim();
+
+    if (destination === "") {
+        alert("Please enter a destination.");
+        return;
+    }
+
+    document.getElementById("placeName").innerText =
+        destination;
+
+    /*
+       Demo weather data.
+       Later we can connect this page
+       to a real weather API.
+    */
+
+    let city = destination.toLowerCase();
+
+    if (city.includes("ooty")) {
+
+        document.getElementById("weatherIcon").innerText = "🌧️";
+        document.getElementById("temperature").innerText = "18°C";
+        document.getElementById("condition").innerText =
+            "Cool and cloudy";
+        document.getElementById("humidity").innerText = "78%";
+        document.getElementById("wind").innerText = "12 km/h";
+
+        document.getElementById("travelTip").innerText =
+            "💡 Tip: Carry a light jacket and umbrella.";
+
+    }
+
+    else if (city.includes("goa")) {
+
+        document.getElementById("weatherIcon").innerText = "☀️";
+        document.getElementById("temperature").innerText = "29°C";
+        document.getElementById("condition").innerText =
+            "Sunny and pleasant";
+        document.getElementById("humidity").innerText = "70%";
+        document.getElementById("wind").innerText = "15 km/h";
+
+        document.getElementById("travelTip").innerText =
+            "💡 Tip: Carry sunscreen, sunglasses and water.";
+
+    }
+
+    else if (city.includes("manali")) {
+
+        document.getElementById("weatherIcon").innerText = "❄️";
+        document.getElementById("temperature").innerText = "12°C";
+        document.getElementById("condition").innerText =
+            "Cold and pleasant";
+        document.getElementById("humidity").innerText = "60%";
+        document.getElementById("wind").innerText = "10 km/h";
+
+        document.getElementById("travelTip").innerText =
+            "💡 Tip: Carry warm clothes and comfortable shoes.";
+
+    }
+
+    else if (city.includes("kerala")) {
+
+        document.getElementById("weatherIcon").innerText = "🌦️";
+        document.getElementById("temperature").innerText = "27°C";
+        document.getElementById("condition").innerText =
+            "Warm with occasional rain";
+        document.getElementById("humidity").innerText = "82%";
+        document.getElementById("wind").innerText = "11 km/h";
+
+        document.getElementById("travelTip").innerText =
+            "💡 Tip: Carry an umbrella and comfortable clothes.";
+
+    }
+
+    else {
+
+        document.getElementById("weatherIcon").innerText = "🌤️";
+        document.getElementById("temperature").innerText = "25°C";
+        document.getElementById("condition").innerText =
+            "Pleasant weather";
+        document.getElementById("humidity").innerText = "65%";
+        document.getElementById("wind").innerText = "14 km/h";
+
+        document.getElementById("travelTip").innerText =
+            "💡 Tip: Check local conditions before starting your trip.";
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>

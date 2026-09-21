@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Travel Toolkit | TravelMate</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f9fd;
+            color: #1f2937;
+        }
+
+        nav {
+            height: 70px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 8%;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1677ff;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #374151;
+            margin-left: 22px;
+            font-size: 15px;
+        }
+
+        nav a:hover {
+            color: #1677ff;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 55px 20px 35px;
+        }
+
+        .hero h1 {
+            font-size: 40px;
+            color: #123b66;
+            margin-bottom: 12px;
+        }
+
+        .hero p {
+            color: #6b7280;
+            font-size: 16px;
+        }
+
+        .tool-container {
+            width: 85%;
+            max-width: 1100px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            padding-bottom: 60px;
+        }
+
+        .tool-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.07);
+        }
+
+        .tool-icon {
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+
+        .tool-card h2 {
+            color: #123b66;
+            margin-bottom: 10px;
+        }
+
+        .tool-card p {
+            color: #6b7280;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        /* Packing Checklist */
+
+        .check-item {
+            margin: 10px 0;
+            color: #374151;
+            font-size: 14px;
+        }
+
+        .check-item input {
+            margin-right: 8px;
+        }
+
+        /* Budget Calculator */
+
+        .calculator input {
+            width: 100%;
+            padding: 11px;
+            margin: 7px 0;
+            border: 1px solid #dbe3ec;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .calculator button {
+            width: 100%;
+            padding: 11px;
+            margin-top: 8px;
+            border: none;
+            border-radius: 20px;
+            background: #1677ff;
+            color: white;
+            cursor: pointer;
+        }
+
+        .calculator button:hover {
+            background: #0d63d8;
+        }
+
+        .result {
+            margin-top: 15px;
+            font-weight: bold;
+            color: #1677ff;
+        }
+
+        /* Travel Tips */
+
+        .tips li {
+            list-style: none;
+            padding: 9px 0;
+            font-size: 14px;
+            color: #4b5563;
+        }
+
+        .tips li::before {
+            content: "✓ ";
+            color: #1677ff;
+            font-weight: bold;
+        }
+
+        footer {
+            background: #123b66;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            font-size: 14px;
+        }
+
+        @media (max-width: 850px) {
+            .tool-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            nav {
+                padding: 0 5%;
+            }
+
+            nav a {
+                margin-left: 8px;
+                font-size: 12px;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+
+<nav>
+
+    <div class="logo">
+        TravelMate
+    </div>
+
+    <div>
+        <a href="/home">Home</a>
+        <a href="/planner">Plan Trip</a>
+        <a href="/destinations">Destinations</a>
+        <a href="/weather">Weather</a>
+    </div>
+
+</nav>
+
+
+<!-- Hero -->
+
+<section class="hero">
+
+    <h1>🎒 Travel Toolkit</h1>
+
+    <p>
+        Useful tools to help you prepare, manage and enjoy your trip.
+    </p>
+
+</section>
+
+
+<!-- Tools -->
+
+<section class="tool-container">
+
+
+    <!-- Packing Checklist -->
+
+    <div class="tool-card">
+
+        <div class="tool-icon">🎒</div>
+
+        <h2>Packing Checklist</h2>
+
+        <p>
+            Tick the items you have packed before starting your journey.
+        </p>
+
+        <div class="check-item">
+            <input type="checkbox">
+            Clothes
+        </div>
+
+        <div class="check-item">
+            <input type="checkbox">
+            Travel Documents
+        </div>
+
+        <div class="check-item">
+            <input type="checkbox">
+            Mobile Charger
+        </div>
+
+        <div class="check-item">
+            <input type="checkbox">
+            Toiletries
+        </div>
+
+        <div class="check-item">
+            <input type="checkbox">
+            Medicines
+        </div>
+
+        <div class="check-item">
+            <input type="checkbox">
+            Water Bottle
+        </div>
+
+    </div>
+
+
+    <!-- Budget Calculator -->
+
+    <div class="tool-card calculator">
+
+        <div class="tool-icon">💰</div>
+
+        <h2>Budget Calculator</h2>
+
+        <p>
+            Calculate your approximate total travel expenses.
+        </p>
+
+        <input
+            type="number"
+            id="transport"
+            placeholder="Transport cost">
+
+        <input
+            type="number"
+            id="hotel"
+            placeholder="Hotel cost">
+
+        <input
+            type="number"
+            id="food"
+            placeholder="Food cost">
+
+        <input
+            type="number"
+            id="activities"
+            placeholder="Activities cost">
+
+        <button onclick="calculateBudget()">
+            Calculate Total
+        </button>
+
+        <div class="result" id="budgetResult">
+            Total: ₹0
+        </div>
+
+    </div>
+
+
+    <!-- Travel Tips -->
+
+    <div class="tool-card">
+
+        <div class="tool-icon">💡</div>
+
+        <h2>Travel Tips</h2>
+
+        <p>
+            Simple tips for a safer and smoother journey.
+        </p>
+
+        <ul class="tips">
+
+            <li>Keep digital copies of documents.</li>
+
+            <li>Carry emergency contact details.</li>
+
+            <li>Check weather before travelling.</li>
+
+            <li>Keep some emergency cash.</li>
+
+            <li>Plan important places in advance.</li>
+
+            <li>Respect local culture and rules.</li>
+
+        </ul>
+
+    </div>
+
+</section>
+
+
+<footer>
+    © 2026 TravelMate | Travel Smart • Travel Safe • Enjoy
+</footer>
+
+
+<script>
+
+function calculateBudget() {
+
+    let transport =
+        Number(document.getElementById("transport").value) || 0;
+
+    let hotel =
+        Number(document.getElementById("hotel").value) || 0;
+
+    let food =
+        Number(document.getElementById("food").value) || 0;
+
+    let activities =
+        Number(document.getElementById("activities").value) || 0;
+
+    let total =
+        transport + hotel + food + activities;
+
+    document.getElementById("budgetResult").innerText =
+        "Total: ₹" + total.toLocaleString("en-IN");
+}
+
+</script>
+
+</body>
+</html>

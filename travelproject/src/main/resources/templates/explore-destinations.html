@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Destinations</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f9fd;
+            color: #222;
+        }
+
+        /* Navbar */
+        nav {
+            background: white;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1677ff;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+        }
+
+        nav ul li a:hover {
+            color: #1677ff;
+        }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 60px 20px 35px;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            color: #1677ff;
+            margin-bottom: 12px;
+        }
+
+        .hero p {
+            color: #666;
+            font-size: 17px;
+        }
+
+        /* Search */
+        .search-box {
+            width: 90%;
+            max-width: 650px;
+            margin: 20px auto 35px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 16px 20px;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            font-size: 16px;
+            outline: none;
+            background: white;
+        }
+
+        .search-box input:focus {
+            border-color: #1677ff;
+        }
+
+        /* Categories */
+        .categories {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .category-btn {
+            border: none;
+            background: white;
+            color: #1677ff;
+            padding: 10px 18px;
+            margin: 5px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .category-btn:hover {
+            background: #1677ff;
+            color: white;
+        }
+
+        /* Cards */
+        .destination-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+            padding-bottom: 60px;
+        }
+
+        .destination-card {
+            background: white;
+            border-radius: 18px;
+            padding: 25px;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+            transition: 0.3s;
+        }
+
+        .destination-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.13);
+        }
+
+        .destination-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .destination-card h2 {
+            color: #1677ff;
+            margin-bottom: 10px;
+        }
+
+        .destination-card p {
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .places {
+            font-size: 14px;
+            color: #444;
+            margin-bottom: 18px;
+        }
+
+        .primary-btn {
+            display: inline-block;
+            background: #1677ff;
+            color: white;
+            text-decoration: none;
+            padding: 11px 18px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .primary-btn:hover {
+            background: #0d5dcc;
+        }
+
+        .no-result {
+            display: none;
+            text-align: center;
+            width: 100%;
+            color: #777;
+            font-size: 18px;
+            padding: 30px;
+        }
+
+        footer {
+            background: white;
+            text-align: center;
+            padding: 25px;
+            color: #777;
+            border-top: 1px solid #eee;
+        }
+
+        @media (max-width: 700px) {
+            nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<nav>
+    <div class="logo">✈️ Travel Planner</div>
+
+    <ul>
+        <li><a href="/home">Home</a></li>
+        <li><a href="/planner">Plan a Trip</a></li>
+        <li><a href="/destinations">Destinations</a></li>
+        <li><a href="/weather">Weather</a></li>
+        <li><a href="/toolkit">Toolkit</a></li>
+    </ul>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+    <h1>🌍 Explore Destinations</h1>
+    <p>Discover beautiful places and plan your next adventure.</p>
+</section>
+
+<!-- Search -->
+<div class="search-box">
+    <input
+        type="text"
+        id="searchInput"
+        placeholder="🔍 Search destinations..."
+        onkeyup="searchDestinations()">
+</div>
+
+<!-- Categories -->
+<div class="categories">
+    <button class="category-btn" onclick="filterCategory('all')">All</button>
+    <button class="category-btn" onclick="filterCategory('hill')">⛰️ Hill Stations</button>
+    <button class="category-btn" onclick="filterCategory('beach')">🏖️ Beaches</button>
+    <button class="category-btn" onclick="filterCategory('heritage')">🏛️ Heritage</button>
+    <button class="category-btn" onclick="filterCategory('nature')">🌿 Nature</button>
+    <button class="category-btn" onclick="filterCategory('city')">🏙️ Cities</button>
+</div>
+
+
+<!-- Destination Cards -->
+<div class="destination-container" id="destinationContainer">
+
+    <div class="destination-card" data-category="city">
+        <div class="destination-icon">🏙️</div>
+        <h2>Chennai</h2>
+        <p>Explore beaches, temples, shopping and South Indian culture.</p>
+        <div class="places">📍 Marina Beach • Kapaleeshwarar Temple • Fort St George</div>
+        <a href="/planner" class="primary-btn">Plan Trip</a>
+    </div>
+
+    <div class="destination-card" data-category="hill">
+        <div class="destination-icon">⛰️</div>
+        <h2>Ooty</h2>
+        <p>A beautiful hill station surrounded by tea gardens and mountains.</p>
+        <div class="places">📍 Ooty Lake • Botanical Garden • Doddabetta</div>
+        <a href="/planner" class="primary-btn">Plan Trip</a>
+    </div>
+
+    <div class="destination-card" data-category="hill">
+        <div class="destination-icon">🏔️</div>
+        <h2>Kodaikanal</h2>
+        <p>Enjoy cool weather, scenic viewpoints and peaceful nature.</p>
+        <div class="places">📍 Kodaikanal Lake • Coaker's Walk • Pillar Rocks</div>
+        <a href="/planner" class="primary-btn">Plan Trip</a>
+    </div>
+
+    <div class="destination-card" data-category="city">
+        <div class="destination-icon">🌆</div>
+        <h2>Coimbatore</h2>
+        <p>A modern city surrounded by beautiful natural attractions.</p>
+        <div class="places">📍 Marudamalai • Isha Yoga Center • Valparai</div>
+        <a href="/planner" class="primary-btn">Plan Trip</a>
+    </div>
+
+    <div class="destination-card" data-category="heritage">
+        <div class="destination-icon">🏛️</div>
+        <h2>Madurai</h2>
+        <p>Experience ancient temples, culture and traditional Tamil cuisine.</p>
+        <div class="places">📍 Meenakshi Temple • Thirumalai Palace • Teppakulam</div>
+        <a href="/planner" class="primary-btn">Plan Trip</a>
+    </div>
+
+    <div class="destination-card" data-category="beach">
+        <div class="destination-icon">🌊</div>
+        <h2>Rameswaram</h2>
+        <p>A famous pilgrimage destination with beautiful coastal scenery.</p>
+        <div class="places">📍 Ramanathaswamy Temple • Pamban Bridge • Dhanushkodi</div>
+        <a href="/planner" class="primary-btn">Plan Trip</a>
+    </div>
+
+    <div class="destination-card" data-category="beach">
+        <div class="destination-icon">🌅</div>
+        <h2>Kanyakumari</h2>
+        <p>Visit the southern tip of India and enjoy spectacular sunsets.</p>
+        <div class="places">📍 Vivekananda Rock • Thiruvalluvar Statue • Beach</div>
+        <a href="/planner" class="primary-btn">Plan Trip</a>
+    </div>
+
+    <div class="destination-card" data-category="heritage">
+        <div class="destination-icon">🏰</div>
+        <h2>Mahabalipuram</h2>
+        <p>Discover ancient monuments and beautiful coastal views.</p>
+        <div class="places">📍 Shore Temple • Pancha Rathas • Arjuna's Penance</div>
+        <a href="/planner" class="primary-btn">Plan Trip</a>
+    </div>
+
+    <div class="destination-card" data-category="heritage">
+        <div class="destination-icon">🛕</div>
+        <h2>Thanjavur</h2>
+        <p>A historic destination famous for temples, art and culture.</p>
+        <div class="places">📍 Brihadeeswarar Temple • Palace • Art Gallery</div>
+        <a href="/planner" class="primary-btn">Plan Trip</a>
+    </div>
+
+    <div class="destination-card" data-category="hill">
+        <div class="destination-icon">🌲</div>
+        <h2>Yercaud</h2>
+        <p>A peaceful hill station surrounded by forests and coffee plantations.</p>
+        <div class="places">📍 Yercaud Lake • Pagoda Point • Lady's Seat</div>
+        <a href="/planner" class="primary-btn">Plan Trip</a>
+    </div>
+
+    <div class="destination-card" data-category="nature">
+        <div class="destination-icon">🌿</div>
+        <h2>Valparai</h2>
+        <p>A scenic mountain destination famous for tea estates and wildlife.</p>
+        <div class="places">📍 Tea Estates • Aliyar • Sholayar</div>
+        <a href="/planner" class="primary-btn">Plan Trip</a>
+    </div>
+
+    <div class="destination-card" data-category="hill">
+        <div class="destination-icon">🌄</div>
+        <h2>Munnar</h2>
+        <p>Enjoy misty mountains, tea plantations and beautiful valleys.</p>
+        <div class="places">📍 Tea Gardens • Eravikulam • Mattupetty</div>
+        <a href="/planner" class="primary-btn">Plan Trip</a>
+    </div>
+
+    <div class="destination-card" data-category="nature">
+        <div class="destination-icon">🚤</div>
+        <h2>Alleppey</h2>
+        <p>Experience relaxing backwaters and traditional houseboat journeys.</p>
+        <div class="places">📍 Backwaters • Houseboats • Alappuzha Beach</div>
+        <a href="/planner" class="primary-btn">Plan Trip</a>
+    </div>
+
+    <div class="destination-card" data-category="beach">
+        <div class="destination-icon">🏖️</div>
+        <h2>Varkala</h2>
+        <p>A beautiful coastal destination known for cliffs and beaches.</p>
+        <div class="places">📍 Varkala Beach • Cliff • Janardhana Temple</div>
+        <a href="/planner" class="primary-btn">Plan Trip</a>
+    </div>
+
+    <div class="destination-card" data-category="nature">
+        <div class="destination-icon">🌳</div>
+        <h2>Wayanad</h2>
+        <p>Explore forests, waterfalls, caves and peaceful mountain scenery.</p>
+        <div class="places">📍 Edakkal Caves • Soochipara • Banasura</div>
+        <a href="/planner" class="primary-btn">Plan Trip</a>
+    </div>
+
+    <div class="destination-card" data-category="city">
+        <div class="destination-icon">🌆</div>
+        <h2>Kochi</h2>
+        <p>A vibrant coastal city with history, culture and modern attractions.</p>
+        <div class="places">📍 Fort Kochi • Marine Drive • Chinese Nets</div>
+        <a href="/planner" class="primary-btn">Plan Trip</a>
+    </div>
+
+    <div class="destination-card" data-category="nature">
+        <div class="destination-icon">🌿</div>
+        <h2>Coorg</h2>
+        <p>A peaceful destination famous for coffee plantations and hills.</p>
+        <div class="places">📍 Abbey Falls • Raja's Seat • Coffee Estates</div>
+        <a href="/planner" class="primary-btn">Plan Trip</a>
+    </div>
+
+    <div class="destination-card" data-category="heritage">
+        <div class="destination-icon">🏰</div>
+        <h2>Mysore</h2>
+        <p>Discover royal heritage, palaces and beautiful gardens.</p>
+        <div class="places">📍 Mysore Palace • Chamundi Hills • Brindavan Gardens</div>
+        <a href="/planner" class="primary-btn">Plan Trip</a>
+    </div>
+
+    <div class="destination-card" data-category="city">
+        <div class="destination-icon">🏙️</div>
+        <h2>Bangalore</h2>
+        <p>A lively city known for technology, parks and food.</p>
+        <div class="places">📍 Cubbon Park • Bangalore Palace • Lalbagh</div>
+        <a href="/planner" class="primary-btn">Plan Trip</a>
+    </div>
+
+    <div class="destination-card" data-category="heritage">
+        <div class="destination-icon">🏛️</div>
+        <h2>Hampi</h2>
+        <p>Explore the fascinating ruins and monuments of the Vijayanagara era.</p>
+        <div class="places">📍 Virupaksha Temple • Stone Chariot • Vittala Temple</div>
+        <a href="/planner" class="primary-btn">Plan Trip</a>
+    </div>
+
+    <div class="destination-card" data-category="city">
+        <div class="destination-icon">🌆</div>
+        <h2>Hyderabad</h2>
+        <p>Experience historic monuments and famous local cuisine.</p>
+        <div class="places">📍 Charminar • Golconda Fort • Hussain Sagar</div>
+        <a href="/planner" class="primary-btn">Plan Trip</a>
+    </div>
+
+    <div class="destination-card" data-category="beach">
+        <div class="destination-icon">🏖️</div>
+        <h2>Goa</h2>
+        <p>Enjoy beaches, nightlife, Portuguese heritage and coastal adventures.</p>
+        <div class="places">📍 Baga Beach • Fort Aguada • Old Goa</div>
+        <a href="/planner" class="primary-btn">Plan Trip</a>
+    </div>
+
+    <div class="destination-card" data-category="city">
+        <div class="destination-icon">🌆</div>
+        <h2>Mumbai</h2>
+        <p>A busy coastal city famous for entertainment, food and landmarks.</p>
+        <div class="places">📍 Gateway of India • Marine Drive • Colaba</div>
+        <a href="/planner" class="primary-btn">Plan Trip</a>
+    </div>
+
+    <div class="destination-card" data-category="hill">
+        <div class="destination-icon">⛰️</div>
+        <h2>Lonavala</h2>
+        <p>A popular getaway surrounded by green hills and waterfalls.</p>
+        <div class="places">📍 Tiger Point • Bhushi Dam • Rajmachi</div>
+        <a href="/planner" class="primary-btn">Plan Trip</a>
+    </div>
+
+    <div class="destination-card" data-category="hill">
+        <div class="destination-icon">🌄</div>
+        <h2>Mahabaleshwar</h2>
+        <p>A scenic hill station with viewpoints, forests and valleys.</p>
+        <div class="places">📍 Arthur's Seat • Venna Lake • Mapro Garden</div>
+        <a href="/planner" class="primary-btn">Plan Trip</a>
+    </div>
+
+    <div class="destination-card" data-category="heritage">
+        <div class="destination-icon">🏰</div>
+        <h2>Jaipur</h2>
+        <p>Explore Rajasthan's royal architecture, forts and colorful markets.</p>
+        <div class="places">📍 Amber Fort • Hawa Mahal • City Palace</div>
+        <a href="/planner" class="primary-btn">Plan Trip</a>
+    </div>
+
+    <div class="destination-card" data-category="heritage">
+        <div class="destination-icon">🏰</div>
+        <h2>Udaipur</h2>
+        <p>A romantic city famous for lakes, palaces and royal architecture.</p>
+        <div class="places">📍 Lake Pichola • City Palace • Jag Mandir</div>
+        <a href="/planner" class="primary-btn">Plan Trip</a>
+    </div>
+
+    <div class="destination-card" data-category="heritage">
+        <div class="destination-icon">🏯</div>
+        <h2>Jodhpur</h2>
+        <p>Discover magnificent forts and the famous blue city.</p>
+        <div class="places">📍 Mehrangarh Fort • Jaswant Thada • Blue City</div>
+        <a href="/planner" class="primary-btn">Plan Trip</a>
+    </div>
+
+    <div class="destination-card" data-category="heritage">
+        <div class="destination-icon">🏜️</div>
+        <h2>Jaisalmer</h2>
+        <p>Experience golden forts, desert landscapes and camel safaris.</p>
+        <div class="places">📍 Jaisalmer Fort • Sam Sand Dunes • Patwon Ki Haveli</div>
+        <a href="/planner" class="primary-btn">Plan Trip</a>
+    </div>
+
+    <div class="destination-card" data-category="heritage">
+        <div class="destination-icon">🕌</div>
+        <h2>Agra</h2>
+        <p>Visit one of India's most famous historical monuments.</p>
+        <div class="places">📍 Taj Mahal • Agra Fort • Mehtab Bagh</div>
+        <a href="/planner" class="primary-btn">Plan Trip</a>
+    </div>
+
+    <div class="destination-card" data-category="city">
+        <div class="destination-icon">🏙️</div>
+        <h2>Delhi</h2>
+        <p>Explore India's capital city, monuments, museums and markets.</p>
+        <div class="places">📍 India Gate • Red Fort • Qutub Minar</div>
+        <a href="/planner" class="primary-btn">Plan Trip</a>
+    </div>
+
+    <div class="destination-card" data-category="nature">
+        <div class="destination-icon">🧘</div>
+        <h2>Rishikesh</h2>
+        <p>A popular destination for spirituality, yoga and adventure.</p>
+        <div class="places">📍 Ganga • Laxman Jhula area • River Rafting</div>
+        <a href="/planner" class="primary-btn">Plan Trip</a>
+    </div>
+
+    <div class="destination-card" data-category="hill">
+        <div class="destination-icon">🏔️</div>
+        <h2>Manali</h2>
+        <p>A beautiful mountain destination with adventure and scenic views.</p>
+        <div class="places">📍 Solang Valley • Old Manali • Rohtang area</div>
+        <a href="/planner" class="primary-btn">Plan Trip</a>
+    </div>
+
+    <div class="destination-card" data-category="hill">
+        <div class="destination-icon">❄️</div>
+        <h2>Shimla</h2>
+        <p>Enjoy mountain views, colonial architecture and cool weather.</p>
+        <div class="places">📍 Mall Road • The Ridge • Jakhoo Temple</div>
+        <a href="/planner" class="primary-btn">Plan Trip</a>
+    </div>
+
+    <div class="destination-card" data-category="hill">
+        <div class="destination-icon">🏔️</div>
+        <h2>Dharamshala</h2>
+        <p>Explore Himalayan scenery, monasteries and peaceful surroundings.</p>
+        <div class="places">📍 McLeod Ganj • Dal Lake • Monasteries</div>
+        <a href="/planner" class="primary-btn">Plan Trip</a>
+    </div>
+
+    <div class="destination-card" data-category="hill">
+        <div class="destination-icon">🌲</div>
+        <h2>Nainital</h2>
+        <p>A charming hill destination famous for its beautiful lake.</p>
+        <div class="places">📍 Naini Lake • Snow View • Mall Road</div>
+        <a href="/planner" class="primary-btn">Plan Trip</a>
+    </div>
+
+    <div class="destination-card" data-category="hill">
+        <div class="destination-icon">🌄</div>
+        <h2>Mussoorie</h2>
+        <p>A scenic hill station with waterfalls and mountain views.</p>
+        <div class="places">📍 Mall Road • Kempty Falls • Gun Hill</div>
+        <a href="/planner" class="primary-btn">Plan Trip</a>
+    </div>
+
+    <div class="destination-card" data-category="heritage">
+        <div class="destination-icon">🏛️</div>
+        <h2>Amritsar</h2>
+        <p>Experience history, culture and famous Punjabi hospitality.</p>
+        <div class="places">📍 Golden Temple • Jallianwala Bagh • Wagah Border</div>
+        <a href="/planner" class="primary-btn">Plan Trip</a>
+    </div>
+
+    <div class="destination-card" data-category="hill">
+        <div class="destination-icon">🏔️</div>
+        <h2>Leh</h2>
+        <p>Discover dramatic Himalayan landscapes and high-altitude scenery.</p>
+        <div class="places">📍 Pangong Lake • Leh Palace • Nubra Valley</div>
+        <a href="/planner"
+        class="primary-btn">Plan Trip</a>
+</div>
+
+</div>
+
+<div id="noResult" style="display:none; text-align:center; padding:30px;">
+    <h3>No destinations found</h3>
+    <p>Try another search or category.</p>
+</div>
+
+<script>
+
+function filterCategory(category) {
+
+    let cards = document.querySelectorAll(".destination-card");
+
+    cards.forEach(function(card) {
+
+        let cardCategory = card.getAttribute("data-category");
+
+        if (category === "all" || cardCategory === category) {
+            card.style.display = "block";
+        } else {
+            card.style.display = "none";
+        }
+
+    });
+
+}
+
+function searchDestinations() {
+
+    let input = document.getElementById("searchInput").value.toLowerCase();
+    let cards = document.querySelectorAll(".destination-card");
+
+    cards.forEach(function(card) {
+
+        let text = card.innerText.toLowerCase();
+
+        if (text.includes(input)) {
+            card.style.display = "block";
+        } else {
+            card.style.display = "none";
+        }
+
+    });
+
+}
+
+</script>
+
+</body>
+</html>

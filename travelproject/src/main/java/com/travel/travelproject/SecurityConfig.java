@@ -3,26 +3,41 @@ package com.travel.travelproject;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class SecurityConfig {
+
+    private final UserRepository userRepository;
+
+    public SecurityConfig(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
             .csrf(csrf -> csrf.disable())
+
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/login").permitAll()
+                .requestMatchers("/login", "/register", "/css/**", "/js/**", "/images/**").permitAll()
                 .anyRequest().authenticated()
             )
+
             .formLogin(form -> form
                 .loginPage("/login")
+                .usernameParameter("email")
+                .passwordParameter("password")
                 .defaultSuccessUrl("/home", true)
+                .permitAll()
+            )
+
+            .logout(logout -> logout
+                .logoutSuccessUrl("/login")
                 .permitAll()
             );
 
@@ -30,13 +45,22 @@ public class SecurityConfig {
     }
 
     @Bean
-    public InMemoryUserDetailsManager userDetailsService() {
+    public UserDetailsService userDetailsService() {
 
-        UserDetails user = User.withUsername("admin")
-                .password("{noop}admin123")
+        return email -> userRepository.findByEmail(email)
+            .map(user -> org.springframework.security.core.userdetails.User
+                .withUsername(user.getEmail())
+                .password(user.getPassword())
                 .roles("USER")
-                .build();
+                .build()
+            )
+            .orElseThrow(() ->
+                new RuntimeException("User not found")
+            );
+    }
 
-        return new InMemoryUserDetailsManager(user);
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }

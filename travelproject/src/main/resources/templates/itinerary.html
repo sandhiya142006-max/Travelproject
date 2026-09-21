@@ -1,259 +1,495 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Day-wise Itinerary</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Your Itinerary - TravelProject</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fa;
+            color: #222;
+        }
+
+        /* Navigation */
+
+        nav {
+            background: #111827;
+            color: white;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+        }
+
+        .nav-links a:hover {
+            color: #60a5fa;
+        }
+
+        /* Header */
+
+        .header {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            color: white;
+            text-align: center;
+            padding: 55px 20px;
+        }
+
+        .header h1 {
+            font-size: 42px;
+            margin-bottom: 12px;
+        }
+
+        .header p {
+            font-size: 18px;
+            opacity: 0.95;
+        }
+
+        /* Trip Information */
+
+        .trip-info {
+            max-width: 1100px;
+            margin: 35px auto 20px;
+            padding: 0 20px;
+        }
+
+        .info-box {
+            background: white;
+            border-radius: 18px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .info-item {
+            text-align: center;
+            padding: 15px;
+        }
+
+        .info-item .icon {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .info-item h3 {
+            font-size: 15px;
+            color: #6b7280;
+            margin-bottom: 5px;
+        }
+
+        .info-item p {
+            font-size: 19px;
+            font-weight: bold;
+        }
+
+        /* Itinerary */
+
+        .itinerary {
+            max-width: 1100px;
+            margin: 35px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 30px;
+            margin-bottom: 30px;
+        }
+
+        .days {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        /* Day Card */
+
+        .day-card {
+            background: white;
+            border-radius: 18px;
+            padding: 25px;
+
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+
+            transition: 0.3s;
+            border-left: 6px solid #2563eb;
+        }
+
+        .day-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 14px 30px rgba(0,0,0,0.12);
+        }
+
+        .day-number {
+            display: inline-block;
+            background: #2563eb;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .day-card h3 {
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+
+        .day-card p {
+            color: #666;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        .activity {
+            margin-top: 18px;
+            padding: 15px;
+            background: #f3f6ff;
+            border-radius: 12px;
+        }
+
+        .activity strong {
+            color: #2563eb;
+        }
+
+        /* Buttons */
+
+        .actions {
+            text-align: center;
+            margin: 45px 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 13px 25px;
+            margin: 8px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            font-size: 15px;
+        }
+
+        .primary {
+            background: #2563eb;
+            color: white;
+        }
+
+        .secondary {
+            background: #111827;
+            color: white;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+
+        footer {
+            background: #111827;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            margin-top: 40px;
+        }
+
+        /* Mobile */
+
+        @media (max-width: 768px) {
+
+            .nav-links {
+                display: none;
+            }
+
+            .header h1 {
+                font-size: 32px;
+            }
+
+            .info-box {
+                grid-template-columns: 1fr;
+            }
+
+            .days {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
 </head>
+
+
 <body>
 
-<h1>Your Day-wise Itinerary</h1>
+<!-- Navigation -->
 
-<div th:each="day : ${#numbers.sequence(1, days)}">
+<nav>
 
-    <h2 th:text="'Day ' + ${day}"></h2>
+    <div class="logo">
+        ✈️ TravelProject
+    </div>
 
-<p th:if="${destination == 'Kodaikanal' and day == 1}">
-    🏞️ Visit Kodaikanal Lake and Coaker's Walk. Enjoy the beautiful hill-station views.
+    <ul class="nav-links">
+
+        <li>
+            <a href="/home">Home</a>
+        </li>
+
+        <li>
+            <a href="/planner">Plan a Trip</a>
+        </li>
+
+        <li>
+            <a href="/itinerary">Itinerary</a>
+        </li>
+
+    </ul>
+
+</nav>
+
+
+<!-- Header -->
+
+<section class="header">
+
+    <h1>🗺️ Your Day-wise Itinerary</h1>
+
+    <p>
+        Your personalized travel journey is ready!
+    </p>
+
+</section>
+
+
+<!-- Trip Information -->
+
+<section class="trip-info">
+
+    <div class="info-box">
+
+        <div class="info-item">
+
+            <div class="icon">📍</div>
+
+            <h3>Destination</h3>
+
+            <p th:text="${destination}">
+                Destination
+            </p>
+
+        </div>
+
+
+        <div class="info-item">
+
+            <div class="icon">📅</div>
+
+            <h3>Total Days</h3>
+
+            <p>
+                <span th:text="${days}">5</span> Days
+            </p>
+
+        </div>
+
+
+        <div class="info-item">
+
+            <div class="icon">✨</div>
+
+            <h3>Travel Mood</h3>
+
+            <p th:text="${mood}">
+                Adventure
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- Itinerary -->
+
+<section class="itinerary">
+
+    <h2 class="section-title">
+        ✨ Your Travel Plan
+    </h2>
+
+
+    <div class="days">
+
+        <!--
+            Automatically creates Day 1 to Day 50
+            depending on the number of days selected.
+        -->
+
+        <div class="day-card"
+             th:each="day : ${#numbers.sequence(1, days)}">
+
+            <span class="day-number"
+                  th:text="'Day ' + ${day}">
+                Day 1
+            </span>
+
+
+           <h3>
+    📍
+    <span th:text="${itineraryDays[day - 1].title}">
+        Famous Place
+    </span>
+</h3>
+
+            <p>
+                Discover the beauty, culture and special
+                attractions of your destination.
+            </p>
+
+
+            <div class="activity">
+
+                <strong>📌 Today's Plan</strong>
+
+            <p th:if="${day == 1}">
+    Visit
+    <strong th:text="${itineraryDays[day - 1].title}">
+        Famous Place
+    </strong>
+    and enjoy the beautiful surroundings.
 </p>
 
-<p th:if="${destination == 'Kodaikanal' and day == 2}">
-    🌳 Explore Bryant Park and Silver Cascade Falls. Enjoy local food in the evening.
+<p th:if="${day == 2}">
+    Visit popular tourist places and enjoy the local surroundings.
 </p>
 
-<p th:if="${destination == 'Kodaikanal' and day == 3}">
-    🌲 Visit Pine Forest and Guna Caves. Spend a relaxing evening exploring nature.
+<p th:if="${day == 3}">
+    Explore local culture, food and interesting places.
 </p>
 
-<p th:if="${destination == 'Kodaikanal' and day == 4}">
-    🌄 Explore Moir Point and Dolphin's Nose. Enjoy photography and scenic viewpoints.
+<p th:if="${day == 4}">
+    Enjoy outdoor activities and beautiful scenic locations.
+</p>
+<p th:if="${day == 5}">
+    Visit famous landmarks and enjoy memorable experiences.
 </p>
 
-<p th:if="${destination == 'Kodaikanal' and day == 5}">
-    🛍️ Enjoy local shopping and try Kodaikanal homemade chocolates.
+<p th:if="${day > 5}">
+    Continue exploring
+    <span th:text="${destination}">your destination</span>
+    and discover new places, activities and local experiences.
 </p>
+<div class="extra-details">
 
-<p th:if="${destination == 'Ooty' and day == 1}">
-    🌿 Visit Ooty Lake and enjoy the beautiful surroundings.
-</p>
+    <p>
+        <strong>📍 Famous Tourist Places:</strong>
+        <span th:if="${destination == 'Ooty'}">
+            Ooty Lake, Botanical Garden, Doddabetta Peak
+        </span>
+        <span th:if="${destination == 'Madurai'}">
+            Meenakshi Amman Temple, Thirumalai Nayakkar Palace, Gandhi Memorial Museum
+        </span>
+    </p>
 
-<p th:if="${destination == 'Ooty' and day == 2}">
-    🌹 Explore Government Botanical Garden and Rose Garden.
-</p>
+    <p>
+        <strong>🍴 Food Spots:</strong>
+        <span th:if="${destination == 'Ooty'}">
+            Homemade chocolates, Ooty Varkey, local restaurants
+        </span>
+        <span th:if="${destination == 'Madurai'}">
+            Jigarthanda, Parotta, local South Indian restaurants
+        </span>
+    </p>
 
-<p th:if="${destination == 'Ooty' and day == 3}">
-    🚂 Enjoy the Nilgiri Mountain Railway experience.
-</p>
+    <p>
+        <strong>🏞️ Outdoor Activities:</strong>
+        <span th:if="${destination == 'Ooty'}">
+            Boating, trekking, cycling and nature walks
+        </span>
+        <span th:if="${destination == 'Madurai'}">
+            Heritage walks, sightseeing and local exploration
+        </span>
+    </p>
 
-<p th:if="${destination == 'Ooty' and day == 4}">
-    🌄 Visit Doddabetta Peak and enjoy the scenic mountain views.
-</p>
-
-<p th:if="${destination == 'Ooty' and day == 5}">
-    🛍️ Explore local markets and enjoy Ooty homemade chocolates.
-</p>
-
-<p th:if="${destination == 'Munnar' and day == 1}">
-    🌿 Explore Munnar tea plantations and enjoy the mountain views.
-</p>
-
-<p th:if="${destination == 'Munnar' and day == 2}">
-    🌄 Visit Top Station and enjoy the beautiful scenery.
-</p>
-
-<p th:if="${destination == 'Munnar' and day == 3}">
-    🌊 Explore Mattupetty Dam and Echo Point.
-</p>
-
-<p th:if="${destination == 'Munnar' and day == 4}">
-    🏞️ Visit Eravikulam National Park and explore nature.
-</p>
-
-<p th:if="${destination == 'Munnar' and day == 5}">
-    🛍️ Explore local markets and buy tea and spices.
-</p>
-<p th:if="${day == 6}">
-    🌿 Explore more local attractions and enjoy the natural beauty of the destination.
-</p>
-
-<p th:if="${day == 7}">
-    📸 Enjoy sightseeing and capture beautiful memories.
-</p>
-
-<p th:if="${day == 8}">
-    🍴 Try local food and explore popular restaurants.
-</p>
-
-<p th:if="${day == 9}">
-    🏞️ Visit nearby scenic places and enjoy a peaceful day.
-</p>
-
-<p th:if="${day == 10}">
-    🛍️ Explore local markets and shop for unique souvenirs.
-</p>
-
-<p th:if="${day == 11}">
-    🌄 Enjoy a relaxing morning and explore nearby viewpoints.
-</p>
-
-<p th:if="${day == 12}">
-    🚶 Take a local sightseeing tour and discover hidden places.
-</p>
-
-<p th:if="${day == 13}">
-    🌳 Spend the day exploring nature and relaxing outdoors.
-</p>
-
-<p th:if="${day == 14}">
-    🍽️ Experience local cuisine and enjoy an evening walk.
-</p>
-
-<p th:if="${day == 15}">
-    📷 Visit beautiful viewpoints and enjoy photography.
-</p>
-
-<p th:if="${day == 16}">
-    🎒 Explore nearby attractions and enjoy a memorable trip.
-</p>
-
-<p th:if="${day == 17}">
-    🌿 Spend a peaceful day exploring the surroundings.
-</p>
-
-<p th:if="${day == 18}">
-    🏕️ Enjoy outdoor activities and scenic views.
-</p>
-
-<p th:if="${day == 19}">
-    🛒 Do some final shopping and enjoy local experiences.
-</p>
-
-<p th:if="${day == 20}">
-    ✈️ Enjoy your final day and prepare for your return journey.
-</p>
-<p th:if="${day == 21}">
-    🌿 Explore nearby attractions and enjoy the natural surroundings.
-</p>
-
-<p th:if="${day == 22}">
-    📸 Visit scenic viewpoints and enjoy photography.
-</p>
-
-<p th:if="${day == 23}">
-    🍴 Try popular local food and traditional dishes.
-</p>
-
-<p th:if="${day == 24}">
-    🛍️ Explore local markets and shop for souvenirs.
-</p>
-
-<p th:if="${day == 25}">
-    🏞️ Visit nearby nature spots and enjoy a peaceful day.
-</p>
-
-<p th:if="${day == 26}">
-    🚶 Take a local sightseeing tour and discover hidden places.
-</p>
-
-<p th:if="${day == 27}">
-    ☕ Visit local cafés and experience the destination's local culture.
-</p>
-
-<p th:if="${day == 28}">
-    🌄 Explore beautiful viewpoints and enjoy the sunset.
-</p>
-
-<p th:if="${day == 29}">
-    🎒 Enjoy an outdoor activity or local adventure experience.
-</p>
-
-<p th:if="${day == 30}">
-    😌 Take a relaxed day to enjoy the destination at your own pace.
-</p>
-
-<p th:if="${day == 31}">
-    🌳 Explore another nearby attraction and spend time in nature.
-</p>
-
-<p th:if="${day == 32}">
-    📷 Discover photogenic locations and capture memorable moments.
-</p>
-
-<p th:if="${day == 33}">
-    🍽️ Experience more local cuisine and popular food spots.
-</p>
-
-<p th:if="${day == 34}">
-    🛒 Visit local shopping areas and explore unique products.
-</p>
-
-<p th:if="${day == 35}">
-    🏕️ Enjoy an outdoor experience and explore the surroundings.
-</p>
-
-<p th:if="${day == 36}">
-    🌅 Visit a scenic location and enjoy a peaceful evening.
-</p>
-
-<p th:if="${day == 37}">
-    🚗 Explore attractions around the main destination.
-</p>
-
-<p th:if="${day == 38}">
-    🌿 Spend the day exploring nature and relaxing outdoors.
-</p>
-
-<p th:if="${day == 39}">
-    🎭 Experience local culture and traditions.
-</p>
-
-<p th:if="${day == 40}">
-    ☕ Enjoy a relaxed café and local food experience.
-</p>
-
-<p th:if="${day == 41}">
-    🏞️ Visit another popular sightseeing location.
-</p>
-
-<p th:if="${day == 42}">
-    📸 Explore scenic places and enjoy photography.
-</p>
-
-<p th:if="${day == 43}">
-    🍴 Discover another local food experience.
-</p>
-
-<p th:if="${day == 44}">
-    🛍️ Explore markets and pick up local souvenirs.
-</p>
-
-<p th:if="${day == 45}">
-    🌄 Enjoy a scenic day trip to a nearby attraction.
-</p>
-
-<p th:if="${day == 46}">
-    🧗 Try an available adventure or outdoor activity.
-</p>
-
-<p th:if="${day == 47}">
-    🌳 Spend a peaceful day exploring nature.
-</p>
-
-<p th:if="${day == 48}">
-    😌 Enjoy a leisure day and revisit your favorite places.
-</p>
-
-<p th:if="${day == 49}">
-    🛒 Complete your shopping and enjoy a final local food experience.
-</p>
-
-<p th:if="${day == 50}">
-    ✈️ Enjoy your final day, collect your memories and prepare for your return journey.
-</p>`
 </div>
-<br>
 
-<a href="/planner">
-    <button>Back to Planner</button>
-</a>
+</div>
+<div class="famous-place">
+
+    <strong>📍 Famous Place:</strong>
+
+    <span th:text="${itineraryDays[day - 1].title}">
+        Famous Place
+    </span>
+
+</div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- Buttons -->
+
+<div class="actions">
+
+    <a href="/planner" class="btn primary">
+        ✈️ Plan Another Trip
+    </a>
+
+    <a href="/home" class="btn secondary">
+        🏠 Back to Home
+    </a>
+
+</div>
+
+
+<!-- Footer -->
+
+<footer>
+
+    <p>
+        © 2026 TravelProject | Plan • Explore • Enjoy ✈️
+    </p>
+
+</footer>
+
 
 </body>
 </html>
